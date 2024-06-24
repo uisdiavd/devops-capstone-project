@@ -142,7 +142,23 @@ class TestAccountService(TestCase):
         id = 0
         response = self.client.get(
             f"{BASE_URL}/{id}",
-            content_type="application/json"
+            content_type = "application/json"
         )
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_list_accounts(self):
+        """ It should list all accounts in the system """
+        length = 5
+        self._create_accounts(length)       
+
+        response = self.client.get(
+            f"{BASE_URL}",
+            content_type = "application/json"
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.get_json()
+
+        self.assertEqual(len(data), length)
