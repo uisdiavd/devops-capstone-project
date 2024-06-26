@@ -101,12 +101,13 @@ def update_account(id):
     This endpoint will update an Account based on the id and property provided in the body
     """
     # Test initial account creation
+    app.logger.info("Finding account...")
     data = Account.find(id)
     if not data:
         abort(status.HTTP_404_NOT_FOUND, f"Account with provided id ${id} not found")
     
     # Test update account
-    app.logger.info("Request to update an account")
+    app.logger.info("Processing request to update an account")
 
     data.deserialize(request.get_json())
     data.update()
@@ -117,7 +118,17 @@ def update_account(id):
 # DELETE AN ACCOUNT
 ######################################################################
 
-# ... place you code here to DELETE an account ...
+@app.route("/accounts/<int:id>", methods=["DELETE"])
+def delete_account(id):
+    """
+    Deletes an account with the specified id
+    """
+    data = Account.find(id)
+
+    # Delete the account
+    app.logger.info("Processing request to update an account")
+    data.delete()
+    return "", status.HTTP_204_NO_CONTENT
 
 
 ######################################################################
