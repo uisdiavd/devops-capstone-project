@@ -202,3 +202,17 @@ class TestAccountService(TestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_delete_account(self):
+        """ It should delete the account with the specified id """
+        account = self._create_accounts(1)[0]
+        deletion = self.client.delete(
+            f"{BASE_URL}/{account.id}",
+            content_type = "application/json"
+        )
+        self.assertEqual(deletion.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_method_not_allowed(self):
+        """ It should not allow an undefined call """
+        response = self.client.delete(BASE_URL)
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
