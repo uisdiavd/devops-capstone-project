@@ -34,10 +34,11 @@ def index():
         status.HTTP_200_OK,
     )
 
-
 ######################################################################
 # CREATE A NEW ACCOUNT
 ######################################################################
+
+
 @app.route("/accounts", methods=["POST"])
 def create_accounts():
     """
@@ -61,6 +62,7 @@ def create_accounts():
 # LIST ALL ACCOUNTS
 ######################################################################
 
+
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
     """
@@ -72,10 +74,11 @@ def list_accounts():
     list = [account.serialize() for account in data]
     return jsonify(list), status.HTTP_200_OK
 
-
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
+
+
 @app.route("/accounts/<int:id>", methods=["GET"])
 def read_account(id):
     """
@@ -87,12 +90,13 @@ def read_account(id):
     data = Account.find(id)
     if not data:
         abort(status.HTTP_404_NOT_FOUND, f"Account with provided id ${id} not found")
-    
+
     return data.serialize(), status.HTTP_200_OK
 
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
+
 
 @app.route("/accounts/<int:id>", methods=["PUT"])
 def update_account(id):
@@ -105,7 +109,7 @@ def update_account(id):
     data = Account.find(id)
     if not data:
         abort(status.HTTP_404_NOT_FOUND, f"Account with provided id ${id} not found")
-    
+
     # Test update account
     app.logger.info("Processing request to update an account")
 
@@ -118,6 +122,7 @@ def update_account(id):
 # DELETE AN ACCOUNT
 ######################################################################
 
+
 @app.route("/accounts/<int:id>", methods=["DELETE"])
 def delete_account(id):
     """
@@ -129,7 +134,6 @@ def delete_account(id):
     app.logger.info("Processing request to update an account")
     data.delete()
     return "", status.HTTP_204_NO_CONTENT
-
 
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
