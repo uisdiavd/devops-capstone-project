@@ -34,7 +34,6 @@ def index():
         status.HTTP_200_OK,
     )
 
-
 ######################################################################
 # CREATE A NEW ACCOUNT
 ######################################################################
@@ -60,7 +59,6 @@ def create_accounts():
 ######################################################################
 # LIST ALL ACCOUNTS
 ######################################################################
-
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
     """
@@ -71,7 +69,6 @@ def list_accounts():
     data = Account.all()
     list = [account.serialize() for account in data]
     return jsonify(list), status.HTTP_200_OK
-
 
 ######################################################################
 # READ AN ACCOUNT
@@ -87,13 +84,12 @@ def read_account(id):
     data = Account.find(id)
     if not data:
         abort(status.HTTP_404_NOT_FOUND, f"Account with provided id ${id} not found")
-    
+
     return data.serialize(), status.HTTP_200_OK
 
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
-
 @app.route("/accounts/<int:id>", methods=["PUT"])
 def update_account(id):
     """
@@ -105,7 +101,7 @@ def update_account(id):
     data = Account.find(id)
     if not data:
         abort(status.HTTP_404_NOT_FOUND, f"Account with provided id ${id} not found")
-    
+
     # Test update account
     app.logger.info("Processing request to update an account")
 
@@ -117,7 +113,6 @@ def update_account(id):
 ######################################################################
 # DELETE AN ACCOUNT
 ######################################################################
-
 @app.route("/accounts/<int:id>", methods=["DELETE"])
 def delete_account(id):
     """
@@ -134,7 +129,6 @@ def delete_account(id):
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
 ######################################################################
-
 
 def check_content_type(media_type):
     """Checks that the media type is correct"""

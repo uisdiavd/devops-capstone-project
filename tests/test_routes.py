@@ -142,7 +142,7 @@ class TestAccountService(TestCase):
         id = 0
         response = self.client.get(
             f"{BASE_URL}/{id}",
-            content_type = "application/json"
+            content_type="application/json"
         )
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -150,11 +150,11 @@ class TestAccountService(TestCase):
     def test_list_accounts(self):
         """ It should list all accounts in the system """
         length = 5
-        self._create_accounts(length)       
+        self._create_accounts(length)
 
         response = self.client.get(
             f"{BASE_URL}",
-            content_type = "application/json"
+            content_type="application/json"
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -169,8 +169,8 @@ class TestAccountService(TestCase):
 
         created_response = self.client.post(
             f"{BASE_URL}",
-            json = account.serialize(),
-            content_type = "application/json"
+            json=account.serialize(),
+            content_type="application/json"
         )
 
         self.assertEqual(created_response.status_code, status.HTTP_201_CREATED)
@@ -180,8 +180,8 @@ class TestAccountService(TestCase):
 
         updated_response = self.client.put(
             f"{BASE_URL}/{updated_account['id']}",
-            json = updated_account,
-            content_type = "application/json"
+            json=updated_account,
+            content_type="application/json"
         )
 
         self.assertEqual(updated_response.status_code, status.HTTP_200_OK)
@@ -197,8 +197,8 @@ class TestAccountService(TestCase):
 
         response = self.client.put(
             f"{BASE_URL}/{id}",
-            json = account.serialize(),
-            content_type = "application/json"
+            json=account.serialize(),
+            content_type="application/json"
         )
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -208,7 +208,7 @@ class TestAccountService(TestCase):
         account = self._create_accounts(1)[0]
         deletion = self.client.delete(
             f"{BASE_URL}/{account.id}",
-            content_type = "application/json"
+            content_type="application/json"
         )
         self.assertEqual(deletion.status_code, status.HTTP_204_NO_CONTENT)
 
